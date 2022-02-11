@@ -1,3 +1,3 @@
 # overpass-api
 
-Utility client class for overpass api + interesting use cases - see notebooks.
+Utility client class for OpenStreetMap overpass api + interesting use cases - see notebooks.
