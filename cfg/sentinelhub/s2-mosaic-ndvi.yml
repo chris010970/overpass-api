@@ -1,0 +1,29 @@
+request:
+    evalscript: |
+                //VERSION=3
+                function setup() {
+                    return {
+                        input: [{
+                            bands: ["B04", "B08"],
+                            units: "DN"
+                        }],
+                        output: {
+                            id: "default",
+                            bands: 1,
+                            sampleType: SampleType.FLOAT32
+                        }
+                    }
+                }
+                function evaluatePixel(sample) {
+                    if ([8, 9, 10].includes(sample.SCL) ){
+                        return [ -1.0 ]
+                    } 
+                    let ndvi = (sample.B08 - sample.B04) / (sample.B08 + sample.B04)
+                    return [ sample.B04 ]
+                }
+    inputs:
+        - collection: SENTINEL2_L2A
+          mosaic:
+            order: leastCC   
+responses:
+    default: TIFF

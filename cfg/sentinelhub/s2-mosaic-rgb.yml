@@ -1,0 +1,26 @@
+request:
+    evalscript: |
+                //VERSION=3
+                function setup() {
+                    return {
+                        input: [{
+                            bands: ["B04", "B03", "B02"]
+                        }],
+                        output: {
+                            bands: 3
+                        }
+                    };
+                }
+                function evaluatePixel(sample) {
+                    return [sample.B04, sample.B03, sample.B02];
+                }
+    inputs:
+        - collection: SENTINEL2_L2A
+          mosaic:
+            order: leastCC   
+responses:
+    default: TIFF
+aoi:
+    pathname: <path-to-aoi-file>   
+    name: name
+    distance: 500
